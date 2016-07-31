@@ -18,11 +18,11 @@
         		),
         		'from' => array(
         			'date_limit' => Input::get('to'),
-        			'display' => 'Día de iniid_numo'
+        			'display' => 'Día de inicio'
         		),
         		'to' => array(
         			'date_limit' => date('Y-m-d'),
-        			'display' => 'Día del fin'
+        			'display' => 'Día de fin'
         		)
         	));
         	if ($validation->passed()) {

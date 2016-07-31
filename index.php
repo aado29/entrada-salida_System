@@ -84,7 +84,8 @@
 	}?>
 		<div class="jumbotron">
 			<h1>Bienvenido, </h1>
-			<p class="lead"><?php echo escape($user->data()->firstName)." ".escape($user->data()->lastName);?></p>
+			<p class="lead">
+			<?php echo escape($user->data()->firstName)." ".escape($user->data()->lastName);?></p>
 			<div id="clock"></div>
 			<?php 
 				$report = new Report();
@@ -94,6 +95,7 @@
 				$timetables = $timetable->getByIdUser($user->data()->id); 
 			?>
 			<h2>Horarios:</h2>
+			<?php if($timetables) { ?>
 			<table class="table table-striped">
 				<thead style="width:100%">
 					<tr>
@@ -112,8 +114,11 @@
 					<?php } ?>
 				</tbody>
 			</table>
+			<?php } else { ?>
+				<p>No hay horarios relacionados</p>
+			<?php } ?>
 			<h2>Horario Actual:</h2>
-			<?php if (!is_null($current_timetable)) { ?>
+			<?php if ($current_timetable) { ?>
 				<p><?php echo $current_timetable->name; ?></p>
 			<?php } else { ?>
 				<p>Usted ha ingresado fuera de su horario laboral</p>
@@ -128,7 +133,7 @@
 			<?php } else { ?>
 				<form action="./" method="POST">
 					<input type="submit" name="submit_in" class="btn btn-lg btn-success col-xs-12" value="Entrar" />
-					<?php if (!is_null($current_timetable)) { ?>
+					<?php if ($current_timetable) { ?>
 						<input type="hidden" name="id_timetable" value="<?php echo $current_timetable->id; ?>"/>
 					<?php } ?>
 					<input type="hidden" name="token" value="<?php echo Token::generate();?>">

@@ -84,15 +84,16 @@ class Timetable {
             $c_h = date('G:i:s');
 
         $data = $this->getByIdUser($id_user);
-        foreach ($data as $value) {
-            $in = strtotime($value->hourIn);
-            $out = strtotime($value->hourOut);
-            $c = strtotime($c_h);
-            if ($c >= $in && $c <= $out)
-                return $value;
-        }
+        if ($data)
+            foreach ($data as $value) {
+                $in = strtotime($value->hourIn);
+                $out = strtotime($value->hourOut);
+                $c = strtotime($c_h);
+                if ($c >= $in && $c <= $out)
+                    return $value;
+            }
 
-        return null;
+        return false;
     }
 
     public function maxVal($date, $date_) {

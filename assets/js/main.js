@@ -101,8 +101,9 @@ var Counter = function(id, options, starttime) {
 		  clearInterval(self.timeinterval);
 		}
 	}
-
-	this.timeinterval = setInterval( this.updateTime, 1000 );
+	
+	if (this.clock != null)
+		this.timeinterval = setInterval( this.updateTime, 1000 );
 }
 
 
