@@ -158,7 +158,7 @@ if (Input::exists('delete', 'post')) {
                 </br>
 
                 <input type="hidden" name="token" value="<?php echo Token::generate();?>">
-                <input class="btn btn-lg btn-primary btn-block" name="new" type="submit" value="Registrar">
+                <input class="btn btn-md btn-primary btn-block" name="new" type="submit" value="Registrar">
             </form>
         <?php } else { ?>
 
@@ -176,7 +176,7 @@ if (Input::exists('delete', 'post')) {
 
                 <input type="hidden" name="id" value="<?php echo escape($current_position->id); ?>">
                 <input type="hidden" name="token" value="<?php echo Token::generate();?>">
-                <input class="btn btn-lg btn-primary btn-block" name="edit" type="submit" value="Editar">
+                <input class="btn btn-md btn-primary btn-block" name="edit" type="submit" value="Editar">
             </form>
         <?php } ?>
     </div>

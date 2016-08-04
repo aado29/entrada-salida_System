@@ -86,6 +86,7 @@
 			<h1>Bienvenido, </h1>
 			<p class="lead">
 			<?php echo escape($user->data()->firstName)." ".escape($user->data()->lastName);?></p>
+			<div id="time"><?php echo date('d-m-Y'); ?></div>
 			<div id="clock"></div>
 			<?php 
 				$report = new Report();
@@ -126,13 +127,13 @@
 
 			<?php if ($result) { ?>
 				<form action="./" method="POST">
-					<input type="submit" name="submit_out" class="btn btn-lg btn-danger col-xs-12" value="Salir" />
+					<input type="submit" name="submit_out" class="btn btn-md btn-danger col-xs-12" value="Salir" />
 					<input type="hidden" name="id" value="<?php echo $result->id; ?>" />
 					<input type="hidden" name="token" value="<?php echo Token::generate();?>">
 				</form>
 			<?php } else { ?>
 				<form action="./" method="POST">
-					<input type="submit" name="submit_in" class="btn btn-lg btn-success col-xs-12" value="Entrar" />
+					<input type="submit" name="submit_in" class="btn btn-md btn-success col-xs-12" value="Entrar" />
 					<?php if ($current_timetable) { ?>
 						<input type="hidden" name="id_timetable" value="<?php echo $current_timetable->id; ?>"/>
 					<?php } ?>

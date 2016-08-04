@@ -10,7 +10,7 @@ $GLOBALS['config'] = array(
     ),
     'template' => array (
         'name' => 'Sistema de control de entrada y salida',
-        'timezone' => 'America/La_Paz'
+        'timezone' => 'America/Caracas'
     ),
     'remember' => array(
         'cookie_name' => 'hash',

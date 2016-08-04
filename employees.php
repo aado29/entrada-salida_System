@@ -22,8 +22,19 @@
 					<h4><?php echo $value->firstName . ' ' . $value->lastName; ?></h4>
 					<span class="text-muted"><b>Id #: </b><?php echo $value->id_type; ?>-<?php echo $value->id_num; ?></span></br>
 					<span class="text-muted">
-						<a href="update.php<?php get_permalink(array('user' => $value->id_num)); ?>">
+						<a href="update.php<?php get_permalink(
+							array(
+								'id_type' => $value->id_type,
+								'id_num' => $value->id_num
+							)); ?>">
 							Editar Perfil
+						</a></br>
+						<a href="updatetable.php<?php get_permalink(
+							array(
+								'id_type' => $value->id_type,
+								'id_num' => $value->id_num
+							)); ?>">
+							Editar Horarios
 						</a>
 					</span>
 				</div>

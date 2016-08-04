@@ -5,8 +5,12 @@ $user_id = Input::get('user_id', 'GET');
 $secret_token = Input::get('secret_token', 'GET');
 $data = $user->findByPass($secret_token, $user_id);
 
-if( !$data || !$user->hasPermission('admin') ){
+if( $user->isLoggedin() && !$user->hasPermission('admin')  ){
     Redirect::to('index.php');
+}
+
+if (empty($data)) {
+    Redirect::to('index.php');   
 }
 
 if (Input::exists()) {
@@ -57,7 +61,7 @@ if (Input::exists()) {
             <label for="passwordNewAgain">Repita la nueva Contraseña</label>
             <input name="password_new_again" type="password" id="passwordNewAgain" class="form-control" >
 
-            <button class="btn btn-lg btn-primary btn-block" type="submit">Cambiar</button>
+            <button class="btn btn-md btn-primary btn-block" type="submit">Cambiar</button>
             <input type="hidden" name="token" value="<?php echo Token::generate();?>">
         </form> 
     </div>

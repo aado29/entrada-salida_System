@@ -120,15 +120,8 @@ body {
 	font-weight: normal;
 }
 
-.form-center select.form-control {
-	border-top-right-radius: 0;
-	border-top-left-radius: 0;
-	height: 44px;
-}
-
 .form-center .form-control {
 	position: relative;
-	height: auto;
 	-webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box;
 	box-sizing: border-box;
@@ -168,6 +161,11 @@ body {
 	z-index: 9999;
 }
 
+#time {
+    color: blue;
+    font-size: 22px;
+}
+
 #clock {
     display: inline-block;
     font-size: 22px;
@@ -184,6 +182,10 @@ body {
 
 .counter-container .counter-days {
 
+}
+
+.counter-container .counter-days:after {
+	content: ': dias ';
 }
 
 .counter-container .counter-hours {

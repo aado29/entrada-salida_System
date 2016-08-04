@@ -104,7 +104,7 @@
 
 				</br>
 				<input type="hidden" name="token" value="<?php echo Token::generate();?>">
-				<button name="submit" class="btn btn-lg btn-primary btn-block" type="submit">Buscar</button>
+				<button name="submit" class="btn btn-md btn-primary btn-block" type="submit">Buscar</button>
 			</form>
 		<?php } else { ?>
 			<form class="form-center" id="report-form" action="./reports.php" method="post">
@@ -128,13 +128,13 @@
 				</br>
 				<input type="hidden" name="token" value="<?php echo Token::generate();?>">
 				<input type="hidden" name="user" value="<?php echo $user->data()->id;?>">
-				<button name="submit" class="btn btn-lg btn-primary btn-block" type="submit">Buscar</button>
+				<button name="submit" class="btn btn-md btn-primary btn-block" type="submit">Buscar</button>
 			</form>
 		<?php }
 		if (Input::exists() && empty($errors)) { ?>
 			<?php if (!empty($data)) { ?>
 				<div class="table-responsive">
-					<input class="btn btn-lg btn-success btn-block noPrint" type="button" onClick="window.print()" value="Imprimir">
+					<input class="btn btn-md btn-success btn-block noPrint" type="button" onClick="window.print()" value="Imprimir">
 					<table class="table table-striped">
 						<thead>
 							<tr>
@@ -186,7 +186,7 @@
 							<?php } ?>
 						</tbody>
 					</table>
-					<input class="btn btn-lg btn-success btn-block noPrint" type="button" onClick="window.print()" value="Imprimir">
+					<input class="btn btn-md btn-success btn-block noPrint" type="button" onClick="window.print()" value="Imprimir">
 				</div>
 
 		<?php } else {

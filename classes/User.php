@@ -81,12 +81,38 @@ class User {
         return FALSE;
     }
 
-    public function login($id_num = NULL, $password = NULL, $remember = false) {
+    public function getUserIdByData($id_type = null, $id_num) {
+        if(!is_null($id_type) && !is_null($id_num)) {
+            $sql = "SELECT * FROM users WHERE id_type = '{$id_type}' AND id_num = {$id_num}";
+            $data = $this->_db->query($sql);
+            if ($data->count()) {
+                $this->_data = $data->first();
+                return $this->_data;
+            } else {
+                $this->_data = null;
+                return FALSE;
+            }
+        }
+        return FALSE;
+    }
+
+    public function getIdByAuth($id_type = NULL, $id_num = NULL) {
+        $sql = "SELECT * FROM users WHERE id_type = '{$id_type}' AND id_num = {$id_num}";
+        $data = $this->_db->query($sql);
+        if ($data->count()) {
+            $this->_data = $data->first();
+            return $this->_data;
+        } else {
+            return FALSE;
+        }
+    }
+
+    public function login($id_type = NULL, $id_num = NULL, $password = NULL, $remember = false) {
 
         if (!$id_num && !$password && $this->exists()) {
             Session::put($this->_sessionName, $this->data()->id);
         } else {
-            $user = $this->find($id_num, 'id_num');
+            $user = $this->getIdByAuth($id_type, $id_num);
             if ($user) {
                 if ($this->data()->password === Hash::make($password, $this->data()->salt)) {
                     Session::put($this->_sessionName, $this->data()->id);
@@ -176,6 +202,19 @@ class User {
                 return $position->name;
         }
         return false;
+    }
+
+    function remember($email = null) {
+        if(!is_null($email)) {
+            $data = $this->_db->get('users', array('email', '=', $email));
+            if ($data->count()) {
+                return array(null, $data->first()->password, $data->first()->id);
+            } else {
+                return array('Correo Electronico no encontrado', null, null);
+            }
+        } else {
+            return false;
+        }
     }
 
     public function exists(){

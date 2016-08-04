@@ -29,11 +29,15 @@ if (Input::exists()) {
                 'max' => 20,
                 'display' => 'Apellido'
             ),
+            'id_type' => array(
+                'required' => true,
+                'display' => 'Tipo de Indentificacion'
+            ),
             'id_num' => array(
                 'required' => true,
                 'unique' => 'users',
                 'numeric' => true,
-                'display' => 'Numero de Cedula'
+                'display' => 'Numero de Identificacion'
             ),
             'password' => array(
                 'required' => TRUE,
@@ -68,6 +72,7 @@ if (Input::exists()) {
             try{
                 
                 $user->create(array(
+                    'id_type' => escape(Input::get('id_type')),
                     'id_num' => escape(Input::get('id_num')),
                     'email' => escape(Input::get('email')),
                     'password' => Hash::make(Input::get('password'), $salt),
@@ -111,8 +116,14 @@ if (Input::exists()) {
             <label for="inputLastName">Apellido:</label>
             <input name="lastName" type="text" id="inputLastName" class="form-control" value="<?php echo escape(Input::get('lastName')); ?>">
 
-            <label for="inputCI">Cedula:</label>
-            <input name="id_num" type="text" id="inputCI" class="form-control" value="<?php echo escape(Input::get('id_num')); ?>">
+            <label for="inputId">Identificación</label>
+            <div class="form-group form-inline">
+                <select name="id_type" id="inputId" class="form-control input-group">
+                    <option value="V">V</option>
+                    <option value="E">E</option>
+                </select>
+                <input name="id_num" type="text" id="inputIdNum" class="form-control input-group" value="<?php echo escape(Input::get('id_num')); ?>">
+            </div>
             
             <label for="inputPass">Contraseña:</label>
             <input name="password" type="password" id="inputPass" class="form-control">
@@ -142,7 +153,7 @@ if (Input::exists()) {
 
 
             <input type="hidden" name="token" value="<?php echo Token::generate();?>">
-            <button class="btn btn-lg btn-primary btn-block" type="submit">Registrar</button>
+            <button class="btn btn-md btn-primary btn-block" type="submit">Registrar</button>
         </form>
     </div>
 <?php get_template('footer'); ?>

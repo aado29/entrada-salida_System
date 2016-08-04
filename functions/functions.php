@@ -27,7 +27,7 @@
         		$value .= $k.'='.$n;
         	$x ++;
         }
-        echo $value;
+        return $value;
 	}
 
 	function handle_messages($messages, $type = 'success') {

@@ -77,7 +77,7 @@ var Counter = function(id, options, starttime) {
 			container = self.clock,
 			options = self.options;
 
-		var d = (t.days > 0) ? 'days: ' + t.days : '',
+		var d = (t.days > 0) ? t.days : '',
 			h = (t.hours.toString().length > 1) ? t.hours: '0'+t.hours,
 			m = (t.minutes.toString().length > 1) ? t.minutes: '0'+t.minutes,
 			s = (t.seconds.toString().length > 1) ? t.seconds: '0'+t.seconds;

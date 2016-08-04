@@ -36,7 +36,7 @@ if (Input::exists('new')) {
 				'required' => true,
 				'time' => true,
 				'display' => 'Hora de Salida'
-			),
+			)
 		));
 
 		if ($validation->passed()) {
@@ -50,6 +50,7 @@ if (Input::exists('new')) {
 					'description' => escape(Input::get('description')),
 					'hourIn' => escape(Input::get('hourIn')),
 					'hourOut' => escape(Input::get('hourOut')),
+					'type' => escape(Input::get('type'))
 				));
 				
 				Session::flash('timetable', array('Haz resgistrado un nuevo horario'));
@@ -92,7 +93,7 @@ if (Input::exists('edit', 'post')) {
 				'required' => true,
 				'time' => true,
 				'display' => 'Hora de Salida'
-			),
+			)
 		));
 
 		if ($validation->passed()) {
@@ -106,6 +107,7 @@ if (Input::exists('edit', 'post')) {
 					'description' => escape(Input::get('description')),
 					'hourIn' => escape(Input::get('hourIn')),
 					'hourOut' => escape(Input::get('hourOut')),
+					'type' => escape(Input::get('type'))
 				), escape(Input::get('id')));
 				
 				Session::flash('timetable', array('Haz editado el horario exitosamente'));
@@ -195,11 +197,17 @@ if (Input::exists('delete', 'post')) {
 
 				<label for="inputHourOut">Hora de Salida:</label>
 				<input name="hourOut" type="text" id="inputHourOut" class="form-control" placeholder="Ej: HH:MM:SS" value="<?php echo escape(Input::get('hourOut')); ?>">
+
+				<label for="inputType">Tipo de Horario</label>
+				<select name="type" class="form-control" id="inputType">
+					<option value="0">Continuo</option>
+					<option value="1">Disontinuo</option>
+				<select>
 				</br>
 
 
 				<input type="hidden" name="token" value="<?php echo Token::generate();?>">
-				<input type="submit" name="new" class="btn btn-lg btn-primary col-xs-12" value="Registrar" />
+				<input type="submit" name="new" class="btn btn-md btn-primary col-xs-12" value="Registrar" />
 			</form>
 		<?php } else { ?>
 			<?php $timetable = new Timetable(); ?>
@@ -217,11 +225,25 @@ if (Input::exists('delete', 'post')) {
 
 				<label for="inputHourOut">Hora de Salida:</label>
 				<input name="hourOut" type="text" id="inputHourOut" class="form-control" placeholder="Ej: HH:MM:SS" value="<?php echo escape($timetables->hourOut); ?>">
+
+				<label for="inputType">Tipo de Horario</label>
+				<select name="type" class="form-control" id="inputType">
+					<?php if ($timetables->type == 0) { ?>
+						<option value="0" selected>Continuo</option>
+					<?php } else { ?>
+						<option value="0">Continuo</option>
+					<?php } ?>
+					<?php if ($timetables->type == 1) { ?>
+						<option value="1" selected>Disontinuo</option>
+					<?php } else { ?>
+						<option value="1">Disontinuo</option>
+					<?php } ?>
+				<select>
 				</br>
 
 				<input type="hidden" name="id" value="<?php echo Input::get('edit', 'GET'); ?>">
 				<input type="hidden" name="token" value="<?php echo Token::generate();?>">
-				<input type="submit" name="edit" class="btn btn-lg btn-primary col-xs-12" value="Modificar">
+				<input type="submit" name="edit" class="btn btn-md btn-primary col-xs-12" value="Modificar">
 			</form>
 		<?php } ?>
 	</div>

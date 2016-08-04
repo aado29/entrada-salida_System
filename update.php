@@ -9,11 +9,14 @@ if(!$user->isLoggedIn()){
 
 $currentId = $user->data()->id;
 
-if ($username = Input::get('user')) { 
-	if ( (!$user->hasPermission('admin')) || ($username == $user->data()->id_num) ) {
+if (Input::exists('id_type', 'get') && Input::exists('id_num', 'get')) { 
+	$id_type = Input::get('id_type', 'GET');
+	$id_num = Input::get('id_num', 'GET');
+	if ( !$user->hasPermission('admin') || ( $id_num == $user->data()->id_num && $id_type == $user->data()->id_type ) ) {
 		Redirect::to('update.php');
 	}
-	$user = new User($username); 
+	$user = new User(); 
+	$user->getUserIdByData($id_type, $id_num);
 	if(!$user->exists()){
 		Redirect::to('index.php');
 	}
@@ -34,15 +37,19 @@ if(Input::exists('update')){
 			'max' => 45,
 			'display' => 'Apellido'
 		),
+		'id_type' => array(
+			'required' => true,
+			'display' => 'Tipo de Identificacion'
+		),
 		'id_num' => array(
 			'required' => true,
 			'numeric' => true,
-			'display' => 'Numero de Cedula'
+			'display' => 'Numero de Identificacion'
 		),
 		'email' => array(
 			'required' => true,
 			'email' => true,
-			'display' => 'Email'
+			'display' => 'Correo Electronico'
 		),
 		'position' => array(
 			// no es necesario
@@ -53,6 +60,7 @@ if(Input::exists('update')){
 	if ($validation->passed()) {
 		try {
 			$user->update(array(
+				'id_type' => escape(Input::get('id_type')),
 				'id_num' => escape(Input::get('id_num')),
 				'email' => escape(Input::get('email')),
 				'firstName' => escape(Input::get('firstName')),
@@ -104,8 +112,14 @@ if(Input::exists('del')){
 			<label for="inputLastName">Apellido:</label>
 			<input name="lastName" type="text" id="inputLastName" class="form-control" value="<?php echo escape($user->data()->lastName); ?>">
 
-			<label for="inputCI">Cedula:</label>
-			<input name="id_num" type="text" id="inputCI" class="form-control" value="<?php echo escape($user->data()->id_num); ?>">
+			<label for="inputId">Identificación</label>
+            <div class="form-group form-inline">
+                <select name="id_type" id="inputId" class="form-control input-group">
+                    <option value="V">V</option>
+                    <option value="E">E</option>
+                </select>
+                <input name="id_num" type="text" id="inputIdNum" class="form-control input-group" value="<?php echo escape($user->data()->id_num); ?>">
+            </div>
 			
 			<label for="inputEmail">Email:</label>
 			<input name="email" type="text" id="inputEmail" class="form-control" value="<?php echo escape($user->data()->email); ?>">
@@ -124,7 +138,7 @@ if(Input::exists('del')){
 				
 			<input type="hidden" name="token" value="<?php echo Token::generate();?>">
 			<input type="hidden" name="id" value="<?php echo $user->data()->id;?>">
-			<input class="btn btn-lg btn-primary btn-block" name="update" type="submit" value="Modificar" >
+			<input class="btn btn-md btn-primary btn-block" name="update" type="submit" value="Modificar" >
 		</div>
 	</form>
 
@@ -133,7 +147,7 @@ if(Input::exists('del')){
 	<form class="form-center" action="#" method="POST">
 		<input type="hidden" name="token_" value="<?php echo Token::generate();?>">
 		<input type="hidden" name="id" value="<?php echo $user->data()->id;?>">
-		<input class="btn btn-lg btn-danger btn-block" name="del" type="submit" value="Eliminar esta cuenta" >
+		<input class="btn btn-md btn-danger btn-block" name="del" type="submit" value="Eliminar esta cuenta" >
 	</form>
 	<?php } ?>
 <?php get_template('footer') ?>

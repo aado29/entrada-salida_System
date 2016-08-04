@@ -64,7 +64,7 @@ if (Input::exists()) {
             <label for="passwordNewAgain">Repita la nueva Contraseña</label>
             <input name="password_new_again" type="password" id="passwordNewAgain" class="form-control" >
 
-            <button class="btn btn-lg btn-primary btn-block" type="submit">Cambiar</button>
+            <button class="btn btn-md btn-primary btn-block" type="submit">Cambiar</button>
             <input type="hidden" name="token" value="<?php echo Token::generate();?>">
         </form> 
     </div>
